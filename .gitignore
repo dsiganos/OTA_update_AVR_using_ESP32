@@ -6,7 +6,6 @@
 /file_serving_avr/sdkconfig
 
 
-/esp_avr_flash/sdkconfig.defaults
 /file_serving_avr/sdkconfig.defaults
 
 /esp_avr_flash/sdkconfig.old

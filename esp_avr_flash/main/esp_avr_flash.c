@@ -6,11 +6,8 @@ static const char *TAG = "esp_avr_flash";
 uint8_t page[PAGE_SIZE_MAX];
 int block_count = 0;
 
-void flashTask(void)
+void flashTask(char *filepath)
 {
-    //Hard coding the file name to be flashed
-    char *filepath = "/spiffs/blink.hex"; 
-
     logI(TAG, "%s", "Writing file to page");
     ESP_ERROR_CHECK(hexFileParser(filepath, page, &block_count));
 
@@ -32,8 +29,29 @@ void initTask(void)
     setupDevice();
 }
 
+void read_uart(void)
+{
+    time_t start = time(0);
+    while (time(0) - start < 10)
+    {
+        char buf;
+        int rc = uart_read_bytes(UART_NUM_2, &buf, 1, 0);
+        if (rc == 1)
+            printf("%c", buf);
+        vTaskDelay(1);
+    }
+
+}
+
 void app_main(void)
 {
     initTask();
-    flashTask();
+
+    while(1)
+    {
+        flashTask("/spiffs/evse1.firmware.hex");
+        read_uart();
+        flashTask("/spiffs/evse2.firmware.hex");
+        read_uart();
+    }
 }
