@@ -61,7 +61,7 @@ int flashPage(char *address, char *data)
     if (length > 0)
     {
         uint8_t data[length];
-        const int rxBytes = uart_read_bytes(UART_NUM_1, data, length, 1000 / portTICK_PERIOD_MS);
+        const int rxBytes = uart_read_bytes(UART_NUM_2, data, length, 1000 / portTICK_PERIOD_MS);
         if (rxBytes > 0)
         {
             if (data[0] == SYNC && data[1] == OK)
@@ -139,7 +139,7 @@ esp_err_t readTask(uint8_t page[], int block_count)
         if (length > 0)
         {
             uint8_t data[length];
-            const int rxBytes = uart_read_bytes(UART_NUM_1, data, length, 1000 / portTICK_PERIOD_MS);
+            const int rxBytes = uart_read_bytes(UART_NUM_2, data, length, 1000 / portTICK_PERIOD_MS);
             if (rxBytes > 0)
             {
                 if (data[0] == SYNC && data[BLOCK_SIZE + 1] == OK)

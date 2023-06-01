@@ -20,9 +20,9 @@ void initUART(void)
         .flow_ctrl = UART_HW_FLOWCTRL_DISABLE,
         .source_clk = UART_SCLK_DEFAULT
     };
-    uart_param_config(UART_NUM_1, &uart_config);
-    uart_set_pin(UART_NUM_1, TXD_PIN, RXD_PIN, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE);
-    uart_driver_install(UART_NUM_1, RX_BUF_SIZE * 2, 0, 0, NULL, 0);
+    uart_param_config(UART_NUM_2, &uart_config);
+    uart_set_pin(UART_NUM_2, TXD_PIN, RXD_PIN, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE);
+    uart_driver_install(UART_NUM_2, RX_BUF_SIZE * 2, 0, 0, NULL, 0);
 
     logI(TAG_AVR_PRO, "%s", "UART initialized");
 }
@@ -169,7 +169,7 @@ int sendBytes(char *bytes, int count)
     if (length > 0)
     {
         uint8_t data[length];
-        const int rxBytes = uart_read_bytes(UART_NUM_1, data, length, 1000 / portTICK_PERIOD_MS);
+        const int rxBytes = uart_read_bytes(UART_NUM_2, data, length, 1000 / portTICK_PERIOD_MS);
         if (rxBytes > 0)
         {
             if (data[0] == SYNC && data[1] == OK)
@@ -197,7 +197,7 @@ int waitForSerialData(int dataCount, int timeout)
     int length = 0;
     while (timer < timeout)
     {
-        uart_get_buffered_data_len(UART_NUM_1, (size_t *)&length);
+        uart_get_buffered_data_len(UART_NUM_2, (size_t *)&length);
         if (length >= dataCount)
         {
             return length;
@@ -210,7 +210,7 @@ int waitForSerialData(int dataCount, int timeout)
 
 int sendData(const char *logName, const char *data, const int count)
 {
-    const int txBytes = uart_write_bytes(UART_NUM_1, data, count);
+    const int txBytes = uart_write_bytes(UART_NUM_2, data, count);
     //ESP_LOG_BUFFER_HEXDUMP(logName, data, count, ESP_LOG_DEBUG);
     return txBytes;
 }
