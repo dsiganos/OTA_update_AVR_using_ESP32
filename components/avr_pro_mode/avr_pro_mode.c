@@ -167,7 +167,7 @@ int sendBytes(char *bytes, int count)
     if (length > 0)
     {
         uint8_t data[length];
-        const int rxBytes = uart_read_bytes(UART_NUM_1, data, length, 1000 / portTICK_RATE_MS);
+        const int rxBytes = uart_read_bytes(UART_NUM_1, data, length, 1000 / portTICK_PERIOD_MS);
         if (rxBytes > 0)
         {
             if (data[0] == SYNC && data[1] == OK)
