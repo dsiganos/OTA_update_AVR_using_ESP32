@@ -94,6 +94,7 @@ void resetMCU(void)
 void setupDevice(void)
 {
     resetMCU();
+    uart_flush(UART_NUM_2);
     getSync();
     setProgParams();
     setExtProgParams();
