@@ -31,9 +31,9 @@
 
 #include "logger.h"
 
-#define TXD_PIN (GPIO_NUM_4)
-#define RXD_PIN (GPIO_NUM_5)
-#define RESET_PIN (GPIO_NUM_19)
+#define TXD_PIN (GPIO_NUM_17)
+#define RXD_PIN (GPIO_NUM_18)
+#define RESET_PIN (GPIO_NUM_16)
 #define HIGH 1
 #define LOW 0
 
