@@ -78,14 +78,17 @@ esp_err_t hexFileParser(const char *filepath, uint8_t page[], int *block_count)
         strcpy(prev_line, curr_line);
     }
 
+    int padding = 0;
     while (idx % 128 != 0)
     {
         page[idx] = 0xff;
         idx++;
+        padding++;
     }
 
     //ESP_LOG_BUFFER_HEXDUMP("Page: ", page, sizeof(page), ESP_LOG_DEBUG);
     *block_count = (idx) / 128;
+    printf("idx=%d block_count=%d padding=%d\n", idx, *block_count, padding);
     logD(TAG_HEX_PARSER, "Block count: %d", *block_count);
 
     return ESP_OK;
