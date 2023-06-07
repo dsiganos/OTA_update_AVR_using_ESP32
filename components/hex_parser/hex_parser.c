@@ -85,7 +85,7 @@ esp_err_t hexFileParser(const char *filepath, uint8_t page[], int *block_count)
     }
 
     //ESP_LOG_BUFFER_HEXDUMP("Page: ", page, sizeof(page), ESP_LOG_DEBUG);
-    *block_count = (idx - 1) / 128;
+    *block_count = (idx) / 128;
     logD(TAG_HEX_PARSER, "Block count: %d", *block_count);
 
     return ESP_OK;
