@@ -35,6 +35,6 @@ char *extractData(char buff[], char data[], int start, int end);
  *   
  * @return ESP_OK - success, ESP_FAIL - failed
  */
-esp_err_t hexFileParser(char *filepath, uint8_t page[], int *block_count);
+esp_err_t hexFileParser(const char *filepath, uint8_t page[], int *block_count);
 
 #endif

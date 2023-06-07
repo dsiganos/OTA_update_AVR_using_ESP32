@@ -19,7 +19,7 @@ char *extractData(char hex_buff[], char data[], int start, int end)
     return data;
 }
 
-esp_err_t hexFileParser(char *filepath, uint8_t page[], int *block_count)
+esp_err_t hexFileParser(const char *filepath, uint8_t page[], int *block_count)
 {
     int idx = 0;
 
@@ -34,14 +34,18 @@ esp_err_t hexFileParser(char *filepath, uint8_t page[], int *block_count)
     while (1)
     {
         char curr_line[64], prev_line[64];
+        prev_line[0] = 0;
 
-        fgets(curr_line, sizeof(curr_line), f);
-        char *pos = strchr(curr_line, '\n');
-
-        if (strcmp(prev_line, curr_line) == 0)
+        if (fgets(curr_line, sizeof(curr_line), f) == NULL)
         {
             break;
         }
+        char *pos = strchr(curr_line, '\n');
+
+        //if (strcmp(prev_line, curr_line) == 0)
+        //{
+        //    break;
+        //}
 
         if (pos)
         {
